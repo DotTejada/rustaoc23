@@ -30,6 +30,14 @@ fn main() {
         // println!("({}, {})", time, dist);
         let mut ways: i32 = 0;
 
+        // this is an optimization that makes it only have to compute half the numbers it normally
+        // would, taking advantage of the fact that after the halfway mark the results are mirrored
+        // 
+        // i also figured out that when time is even, then if we find the number of ways before the
+        // halfway point, we can just stop there, multiply by 2 for the mirror and add 1 for the
+        // middle value we get
+        //
+        // when time is odd, we can just multiply by 2, it mirrors perfectly
         if time % 2 == 0 {
             for i in 0..=((time - 2) / 2) {
                 let res: i32 = (time - i) * (i);
