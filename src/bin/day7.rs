@@ -11,7 +11,8 @@ struct Hand {
 #[derive(Debug)]
 #[allow(dead_code)]
 struct WeightedHand<'a> {
-    hand: &'a Hand,
+    cards: &'a String,
+    bid: i32,
     htype: HType
 }
 
@@ -24,7 +25,8 @@ fn build_hand(cards: &String, bid: i32) -> Hand {
 
 fn build_weighted_hand(hand: &Hand, htype: HType) -> WeightedHand {
     WeightedHand {
-        hand,
+        cards: &hand.cards,
+        bid: hand.bid,
         htype
     }
 }
@@ -81,10 +83,14 @@ fn main() {
 
     println!("{:?}", input);
 
-    for hand in &input {
-        //println!("{:?} is of type: {:?}", &hand.cards, findkind(&hand.cards));
-        let x = build_weighted_hand(hand, findkind(&hand.cards));
-        println!("{:?}", x);
+    let whands: Vec<WeightedHand> = input
+        .iter()
+        .map(|hand| build_weighted_hand(hand, findkind(&hand.cards)))
+        .collect();
+
+    //println!("{:#?}", whands);
+    for whand in whands {
+        println!("{:?}", whand);
     }
 
 }
