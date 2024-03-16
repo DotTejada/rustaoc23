@@ -24,15 +24,14 @@ fn find_steps<'a>(nodes: &'a HashMap<&'a str, [&'a str; 2]>, directions: &'a str
         if result == "ZZZ" {
             //println!("{:?}", steps);
             return steps
-        } else {
-            result = find_next(&nodes, result, d);
-            steps += 1;
         }
+        result = find_next(&nodes, result, d);
+        steps += 1;
     }
     if result != "ZZZ" {
         find_steps(&nodes, directions, result, steps)
     } else if result == "ZZZ" {
-        return steps
+        steps
     } else {
         unreachable!();
     }
